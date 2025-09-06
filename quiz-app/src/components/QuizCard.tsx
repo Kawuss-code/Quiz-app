@@ -1,14 +1,12 @@
+import type { QuestionInfo } from "../types";
+
 function QuizCard({ data }: { data: QuestionInfo }) {
-  return <div>{data.category}</div>;
+  return (
+    <div>
+      <p>{data.category}</p>
+      <p>{data.difficulty}</p>
+    </div>
+  );
 }
 
 export default QuizCard;
-
-interface QuestionInfo {
-  type: string;
-  difficulty: string;
-  category: string;
-  question: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-}
