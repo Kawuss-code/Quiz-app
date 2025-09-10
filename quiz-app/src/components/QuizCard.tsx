@@ -1,13 +1,15 @@
 import type { QuestionInfo } from "../types";
-import { Button } from "./Button";
+import ButtonsPanel from "./ButtonsPanel";
 
 function QuizCard({
   data,
-  onQuestionNumChange,
+  onQuestionNumNext,
+  onQuestionNumPrev,
   isLoading,
 }: {
   data?: QuestionInfo;
-  onQuestionNumChange: () => void;
+  onQuestionNumNext: () => void;
+  onQuestionNumPrev: () => void;
   isLoading: boolean;
 }) {
   function decodeHTML(str: string) {
@@ -30,11 +32,13 @@ function QuizCard({
         <p>Category: {data.category}</p>
         <p>Difficulty: {data.difficulty}</p>
         <p>Question: {decodeHTML(data.question)}</p>
-        <Button answer={decodeHTML(data.correct_answer)} />
-        {data.incorrect_answers.map((ans) => (
-          <Button answer={decodeHTML(ans)} />
-        ))}
-        <button onClick={onQuestionNumChange}>Next Question</button>
+        <ButtonsPanel
+          decodeHTML={decodeHTML}
+          correctAnswer={decodeHTML(data.correct_answer)}
+          incorrectAnswers={data.incorrect_answers}
+        />
+        <button onClick={onQuestionNumPrev}>Previous Question</button>
+        <button onClick={onQuestionNumNext}>Next Question</button>
       </div>
     </>
   );
