@@ -7,17 +7,7 @@ import QuizCard from "./components/QuizCard";
 function App() {
   const [dataTab, setDataTab] = useState<QuestionInfo[]>([]);
   const [questionNum, setQuestionNum] = useState(0);
-  // const [answersState, setAnswersState] = useState<
-  //   (null | "correct" | "wrong")[]
-  // >([]);
-
-  // function markAnswer(questionIndex: number, isCorrect: boolean) {
-  //   setAnswersState((prev) => {
-  //     const newState = [...prev];
-  //     newState[questionNum] = isCorrect ? "correct" : "wrong";
-  //     return newState;
-  //   });
-  // }
+  const [answersState, setAnswersState] = useState<(null | string)[]>([]);
 
   useEffect(() => {
     fetch(
@@ -33,6 +23,14 @@ function App() {
       });
   }, []);
 
+  function markAnswer(questionNum: number, isCorrect: boolean) {
+    setAnswersState((prev) => {
+      const newState = [...prev];
+      newState[questionNum] = isCorrect ? "correct" : "wrong";
+      return newState;
+    });
+  }
+
   function QuestionNumNext() {
     setQuestionNum((prev) => (prev < dataTab.length - 1 ? prev + 1 : prev));
   }
@@ -40,8 +38,6 @@ function App() {
   function QuestionNumPrev() {
     setQuestionNum((prev) => (prev > 0 ? prev - 1 : prev));
   }
-
-  console.log(dataTab);
 
   return (
     <>
@@ -51,6 +47,9 @@ function App() {
           onQuestionNumPrev={QuestionNumPrev}
           data={dataTab.length > 0 ? dataTab[questionNum] : undefined}
           isLoading={dataTab.length === 0}
+          userAnswer={answersState[questionNum]}
+          markAnswer={markAnswer}
+          questionNum={questionNum}
         />
       </VantaFog>
     </>

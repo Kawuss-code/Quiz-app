@@ -6,11 +6,17 @@ function QuizCard({
   onQuestionNumNext,
   onQuestionNumPrev,
   isLoading,
+  userAnswer,
+  markAnswer,
+  questionNum,
 }: {
   data?: QuestionInfo;
   onQuestionNumNext: () => void;
   onQuestionNumPrev: () => void;
   isLoading: boolean;
+  userAnswer: null | string;
+  markAnswer: (questionNum: number, isCorrect: boolean) => void;
+  questionNum: number;
 }) {
   function decodeHTML(str: string) {
     const txt = document.createElement("textarea");
@@ -36,6 +42,9 @@ function QuizCard({
           decodeHTML={decodeHTML}
           correctAnswer={decodeHTML(data.correct_answer)}
           incorrectAnswers={data.incorrect_answers}
+          userAnswer={userAnswer}
+          markAnswer={markAnswer}
+          questionNum={questionNum}
         />
         <button onClick={onQuestionNumPrev}>Previous Question</button>
         <button onClick={onQuestionNumNext}>Next Question</button>
