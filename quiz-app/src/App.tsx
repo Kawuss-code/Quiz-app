@@ -3,6 +3,7 @@ import type { QuestionInfo } from "./types";
 import "./App.css";
 import VantaFog from "./components/VantaFog";
 import QuizCard from "./components/QuizCard";
+// import { useLocalStorage } from 'usehooks-ts'
 
 function App() {
   const [dataTab, setDataTab] = useState<QuestionInfo[]>([]);
@@ -10,18 +11,29 @@ function App() {
   const [answersState, setAnswersState] = useState<(null | string)[]>([]);
 
   useEffect(() => {
-    fetch(
-      "https://opentdb.com/api.php?amount=5&category=15&difficulty=easy&type=multiple"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setDataTab(data.results ?? []);
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
-        setDataTab([]);
-      });
+    const saved = localStorage.getItem("info");
+
+    if (saved) {
+      const data = JSON.parse(saved);
+      setDataTab(data.results ?? []);
+    } else {
+      fetch(
+        "https://opentdb.com/api.php?amount=5&category=15&difficulty=easy&type=multiple"
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setDataTab(data.results ?? []);
+          localStorage.setItem("info", JSON.stringify(data));
+        })
+        .catch((error) => {
+          console.error("Error: ", error);
+          setDataTab([]);
+        });
+    }
   }, []);
+
+  // localStorage.clear()
+  // localStorage.removeItem(key)
 
   function markAnswer(questionNum: number, isCorrect: boolean) {
     setAnswersState((prev) => {

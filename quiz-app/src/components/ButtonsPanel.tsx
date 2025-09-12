@@ -21,7 +21,6 @@ function ButtonsPanel({
   });
   answersTable.push(correctAnswer);
   answersTable.sort();
-  console.log(answersTable);
 
   return (
     <>
