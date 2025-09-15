@@ -3,12 +3,24 @@ import type { QuestionInfo } from "./types";
 import "./App.css";
 import VantaFog from "./components/VantaFog";
 import QuizCard from "./components/QuizCard";
-// import { useLocalStorage } from 'usehooks-ts'
+
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
   const [dataTab, setDataTab] = useState<QuestionInfo[]>([]);
-  const [questionNum, setQuestionNum] = useState(0);
-  const [answersState, setAnswersState] = useState<(null | string)[]>([]);
+  // const [questionNum, setQuestionNum] = useState(0);
+
+  const [questionNum, setQuestionNum] = useLocalStorage<number>(
+    "questionNum",
+    0
+  );
+
+  // const [answersState, setAnswersState] = useState<(null | string)[]>([]);
+
+  const [answersState, setAnswersState] = useLocalStorage<(null | string)[]>(
+    "answersTab",
+    []
+  );
 
   useEffect(() => {
     const saved = localStorage.getItem("info");
@@ -32,16 +44,26 @@ function App() {
     }
   }, []);
 
-  // localStorage.clear()
+  console.log(answersState);
+
+  // localStorage.clear();
   // localStorage.removeItem(key)
 
   function markAnswer(questionNum: number, isCorrect: boolean) {
-    setAnswersState((prev) => {
-      const newState = [...prev];
+    const newState = [...answersState];
+    if (newState[questionNum] == null) {
       newState[questionNum] = isCorrect ? "correct" : "wrong";
-      return newState;
-    });
+      setAnswersState(newState);
+    }
   }
+
+  // function markAnswer(questionNum: number, isCorrect: boolean) {
+  //   setAnswersState((prev) => {
+  //     const newState = [...prev];
+  //     newState[questionNum] = isCorrect ? "correct" : "wrong";
+  //     return newState;
+  //   });
+  // }
 
   function QuestionNumNext() {
     setQuestionNum((prev) => (prev < dataTab.length - 1 ? prev + 1 : prev));
