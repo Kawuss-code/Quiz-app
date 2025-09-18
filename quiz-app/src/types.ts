@@ -6,3 +6,9 @@ export interface QuestionInfo {
   correct_answer: string;
   incorrect_answers: string[];
 }
+
+export interface QuizDataType {
+  number: number;
+  category: string;
+  difficulty: string;
+}

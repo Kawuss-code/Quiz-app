@@ -3,11 +3,13 @@ import VantaFog from "./components/VantaFog";
 import QuizApp from "./components/QuizApp";
 import Start from "./components/Start";
 import Summary from "./components/Summary";
+import type { QuizDataType } from "./types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useState } from "react";
 
 function App() {
-  const stepArray = ["start", "quiz", "summary"];
   const [step, setStep] = useLocalStorage<number>("stepNumber", 0);
+  const [quizType, setQuizType] = useState<QuizDataType | null>(null);
 
   function setNextStep() {
     if (step === 2) {
@@ -18,13 +20,19 @@ function App() {
   }
 
   console.log(step);
-  localStorage.clear();
+  // localStorage.clear();
+
+  function getQuizTypeData(quizTypeData: QuizDataType) {
+    setQuizType(quizTypeData);
+  }
 
   return (
     <>
       <VantaFog>
-        {step === 0 && <Start setNextStep={setNextStep} />}
-        {step === 1 && <QuizApp />}
+        {step === 0 && (
+          <Start setNextStep={setNextStep} getQuizTypeData={getQuizTypeData} />
+        )}
+        {step === 1 && <QuizApp quizType={quizType} />}
         {step === 2 && <Summary />}
       </VantaFog>
     </>
