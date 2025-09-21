@@ -9,6 +9,7 @@ function QuizCard({
   userAnswer,
   markAnswer,
   questionNum,
+  setNextStep,
 }: {
   data?: QuestionInfo;
   onQuestionNumNext: () => void;
@@ -17,6 +18,7 @@ function QuizCard({
   userAnswer: null | string;
   markAnswer: (questionNum: number, isCorrect: boolean) => void;
   questionNum: number;
+  setNextStep: () => void;
 }) {
   function decodeHTML(str: string) {
     const txt = document.createElement("textarea");
@@ -48,6 +50,7 @@ function QuizCard({
         />
         <button onClick={onQuestionNumPrev}>Previous Question</button>
         <button onClick={onQuestionNumNext}>Next Question</button>
+        <button onClick={setNextStep}>Go to summary</button>
       </div>
     </>
   );

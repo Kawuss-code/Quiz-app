@@ -4,7 +4,13 @@ import type { QuizDataType } from "../types";
 import QuizCard from "./QuizCard";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-function QuizApp({ quizType }: { quizType: QuizDataType | null }) {
+function QuizApp({
+  setNextStep,
+  quizType,
+}: {
+  setNextStep: () => void;
+  quizType: QuizDataType | null;
+}) {
   const [dataTab, setDataTab] = useState<QuestionInfo[]>([]);
   // const [questionNum, setQuestionNum] = useState(0);
 
@@ -97,6 +103,7 @@ function QuizApp({ quizType }: { quizType: QuizDataType | null }) {
         userAnswer={answersState[questionNum]}
         markAnswer={markAnswer}
         questionNum={questionNum}
+        setNextStep={setNextStep}
       />
     </>
   );
