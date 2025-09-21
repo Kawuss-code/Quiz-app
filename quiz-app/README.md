@@ -1,69 +1,40 @@
-# React + TypeScript + Vite
+# Quiz-App (React + TypeScript + TailwindCSS + Vite + external API - no server)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Work in progress...
 
-Currently, two official plugins are available:
+## About project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is a single page Quiz App. There are three general components: Start, QuizApp, Summary.
+The quiz data is taken from https://opentdb.com. Background is fog component taken from Vanta.
 
-## Expanding the ESLint configuration
+### Start
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+In Start component there is:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Number input for questions quantity(1 - 50)
+- Select field with many categories to choose from(eg. Video Games, Geography, History, Art)
+- Select field with three difficulties(easy, medium, hard)
+  _You can choose Any Category or Any Difficulty in selects, default questions number is 10_
+- Button to confirm form data and go to quiz
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### QuizApp
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+QuizApp is made of <- QuizCard <- ButtonsPanel <- Button components:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- QuizApp is packaging for other components
+- In QuizApp is fetch which takes data from opentdb and save it in LocalStorage to prevent quiz reset when refreshed
+- In QuizCard there is info about question: category, difficulty, question
+- There are two buttons: Previous Question, Next Question
+- In the last question there is button named Go to summary
+- In ButtonsPanel the answers are randomly sorted
+- The answers data is forwarded to 4 Button components
+- In Button components there is function that reveals correct answer
+- The answers are saved in LocalStorage
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Summary
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+In progress...
+
+## Styles
+
+Styles are made in CSS and TailwindCSS - in progress...
