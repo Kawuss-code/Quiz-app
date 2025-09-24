@@ -13,14 +13,15 @@ function App() {
 
   function setNextStep() {
     if (step === 2) {
+      localStorage.clear();
       setStep(0);
     } else {
       setStep((step) => (step = step + 1));
     }
   }
 
-  console.log(step);
-  localStorage.clear();
+  // console.log(step);
+  // localStorage.clear();
 
   function getQuizTypeData(quizTypeData: QuizDataType) {
     setQuizType(quizTypeData);
@@ -35,7 +36,7 @@ function App() {
         {step === 1 && (
           <QuizApp setNextStep={setNextStep} quizType={quizType} />
         )}
-        {step === 2 && <Summary />}
+        {step === 2 && <Summary setNextStep={setNextStep} />}
       </VantaFog>
     </>
   );

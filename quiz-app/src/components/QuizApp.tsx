@@ -27,6 +27,11 @@ function QuizApp({
   );
 
   const questionQuantity = quizType?.number;
+  const savedQuantity = localStorage.getItem("questionQuantity");
+  if (!savedQuantity) {
+    localStorage.setItem("questionQuantity", JSON.stringify(questionQuantity));
+  }
+  // console.log("quantity: " + quizType?.number);
 
   let category = "";
   if (quizType?.category !== "any") {
@@ -66,7 +71,7 @@ function QuizApp({
 
   console.log(answersState);
 
-  localStorage.clear();
+  // localStorage.clear();
   // localStorage.removeItem(key)
 
   function markAnswer(questionNum: number, isCorrect: boolean) {
@@ -103,6 +108,7 @@ function QuizApp({
         userAnswer={answersState[questionNum]}
         markAnswer={markAnswer}
         questionNum={questionNum}
+        // questionQuantity={questionQuantityNum}
         setNextStep={setNextStep}
       />
     </>

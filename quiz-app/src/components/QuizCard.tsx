@@ -9,6 +9,7 @@ function QuizCard({
   userAnswer,
   markAnswer,
   questionNum,
+  // questionQuantity,
   setNextStep,
 }: {
   data?: QuestionInfo;
@@ -18,6 +19,7 @@ function QuizCard({
   userAnswer: null | string;
   markAnswer: (questionNum: number, isCorrect: boolean) => void;
   questionNum: number;
+  // questionQuantity: number | undefined;
   setNextStep: () => void;
 }) {
   function decodeHTML(str: string) {
@@ -34,11 +36,14 @@ function QuizCard({
     );
   }
 
+  const questionQuantity = Number(localStorage.getItem("questionQuantity"));
+
   return (
     <>
       <div className="w-140 h-160 p-4 rounded-4xl bg-[rgba(223,205,222,0.5)]">
-        <p>Category: {data.category}</p>
+        <p>Category: {decodeHTML(data.category)}</p>
         <p>Difficulty: {data.difficulty}</p>
+        <p>Question number: {questionNum + 1}</p>
         <p>Question: {decodeHTML(data.question)}</p>
         <ButtonsPanel
           decodeHTML={decodeHTML}
@@ -48,9 +53,21 @@ function QuizCard({
           markAnswer={markAnswer}
           questionNum={questionNum}
         />
-        <button onClick={onQuestionNumPrev}>Previous Question</button>
-        <button onClick={onQuestionNumNext}>Next Question</button>
-        <button onClick={setNextStep}>Go to summary</button>
+        {questionNum !== 0 && (
+          <button className="m-2" onClick={onQuestionNumPrev}>
+            Previous Question
+          </button>
+        )}
+        {questionNum + 1 !== questionQuantity && (
+          <button className="m-2" onClick={onQuestionNumNext}>
+            Next Question
+          </button>
+        )}
+        {questionNum + 1 === questionQuantity && (
+          <button className="m-2" onClick={setNextStep}>
+            Go to summary
+          </button>
+        )}
       </div>
     </>
   );
