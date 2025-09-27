@@ -10,6 +10,7 @@ import { useState } from "react";
 function App() {
   const [step, setStep] = useLocalStorage<number>("stepNumber", 0);
   const [quizType, setQuizType] = useState<QuizDataType | null>(null);
+  const [correctAnswers, setCorrectAnswers] = useState<number>(0);
 
   function setNextStep() {
     if (step === 2) {
@@ -20,11 +21,20 @@ function App() {
     }
   }
 
+  function refreshQuiz() {
+    localStorage.clear();
+    setStep(0);
+  }
+
   // console.log(step);
   // localStorage.clear();
 
   function getQuizTypeData(quizTypeData: QuizDataType) {
     setQuizType(quizTypeData);
+  }
+
+  function setCorrectAnsToApp(ans: number) {
+    setCorrectAnswers(ans);
   }
 
   return (
@@ -34,9 +44,16 @@ function App() {
           <Start setNextStep={setNextStep} getQuizTypeData={getQuizTypeData} />
         )}
         {step === 1 && (
-          <QuizApp setNextStep={setNextStep} quizType={quizType} />
+          <QuizApp
+            setNextStep={setNextStep}
+            quizType={quizType}
+            refreshQuiz={refreshQuiz}
+            setCorrectAnsToApp={setCorrectAnsToApp}
+          />
         )}
-        {step === 2 && <Summary setNextStep={setNextStep} />}
+        {step === 2 && (
+          <Summary setNextStep={setNextStep} correctAnswers={correctAnswers} />
+        )}
       </VantaFog>
     </>
   );

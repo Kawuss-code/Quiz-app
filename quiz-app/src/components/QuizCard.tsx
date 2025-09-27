@@ -6,22 +6,26 @@ function QuizCard({
   data,
   onQuestionNumNext,
   onQuestionNumPrev,
-  isLoading,
+  // isLoading,
   userAnswer,
   markAnswer,
   questionNum,
   // questionQuantity,
   setNextStep,
+  refreshQuiz,
+  setCorrectAnsToApp,
 }: {
   data?: QuestionInfo;
   onQuestionNumNext: () => void;
   onQuestionNumPrev: () => void;
-  isLoading: boolean;
+  // isLoading: boolean;
   userAnswer: null | string;
   markAnswer: (questionNum: number, isCorrect: boolean) => void;
   questionNum: number;
   // questionQuantity: number | undefined;
   setNextStep: () => void;
+  refreshQuiz: () => void;
+  setCorrectAnsToApp: (ans: number) => void;
 }) {
   const [showWarning, setShowWarning] = useState(false);
 
@@ -32,11 +36,11 @@ function QuizCard({
   }
 
   function toSummary(): void {
-    console.log("toSummary called, current showWarning:", showWarning);
+    // console.log("toSummary called, current showWarning:", showWarning);
 
     try {
       const raw = localStorage.getItem("answersTab");
-      console.log("localStorage after marking answers:", raw);
+      // console.log("localStorage after marking answers:", raw);
 
       // Poprawne parsowanie - localStorage zawiera bezpośrednio tablicę
       const answers: (string | null)[] = JSON.parse(raw || "[]");
@@ -44,25 +48,33 @@ function QuizCard({
         localStorage.getItem("questionQuantity") || "0"
       );
 
-      console.log("Answers:", answers);
-      console.log("Question quantity:", questionQuantity);
-      console.log("Answers length:", answers.length);
+      // console.log("Answers:", answers);
+      // console.log("Question quantity:", questionQuantity);
+      // console.log("Answers length:", answers.length);
 
       const hasAllAnswers = answers.length === questionQuantity;
       const allAnswered =
         hasAllAnswers &&
         answers.every((e: string | null) => e === "correct" || e === "wrong");
 
-      console.log("Has all answers:", hasAllAnswers);
-      console.log("All answered:", allAnswered);
+      // console.log("Has all answers:", hasAllAnswers);
+      // console.log("All answered:", allAnswered);
 
       if (!allAnswered) {
-        console.log("Setting warning to true");
+        // console.log("Setting warning to true");
         setShowWarning(true);
         return;
       }
 
-      console.log("Going to next step");
+      let correctCount = 0;
+      answers.forEach((answer) => {
+        if (answer == "correct") {
+          correctCount++;
+        }
+      });
+
+      setCorrectAnsToApp(correctCount);
+      // console.log("Going to next step");
       setShowWarning(false);
       setNextStep();
     } catch (error) {
@@ -88,10 +100,11 @@ function QuizCard({
   //   }
   // }
 
-  if (isLoading || !data) {
+  if (!data) {
     return (
       <div className="w-140 h-160 p-4 rounded-4xl bg-[rgba(223,205,222,0.5)]">
         <p>Loading...</p>
+        <button onClick={refreshQuiz}>Refresh</button>
       </div>
     );
   }

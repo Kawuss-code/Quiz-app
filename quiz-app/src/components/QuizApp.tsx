@@ -7,9 +7,13 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 function QuizApp({
   setNextStep,
   quizType,
+  refreshQuiz,
+  setCorrectAnsToApp,
 }: {
   setNextStep: () => void;
   quizType: QuizDataType | null;
+  refreshQuiz: () => void;
+  setCorrectAnsToApp: (ans: number) => void;
 }) {
   const [dataTab, setDataTab] = useState<QuestionInfo[]>([]);
   // const [questionNum, setQuestionNum] = useState(0);
@@ -104,12 +108,14 @@ function QuizApp({
         onQuestionNumNext={QuestionNumNext}
         onQuestionNumPrev={QuestionNumPrev}
         data={dataTab.length > 0 ? dataTab[questionNum] : undefined}
-        isLoading={dataTab.length === 0}
+        // isLoading={dataTab.length === 0}
         userAnswer={answersState[questionNum]}
         markAnswer={markAnswer}
         questionNum={questionNum}
         // questionQuantity={questionQuantityNum}
         setNextStep={setNextStep}
+        refreshQuiz={refreshQuiz}
+        setCorrectAnsToApp={setCorrectAnsToApp}
       />
     </>
   );
