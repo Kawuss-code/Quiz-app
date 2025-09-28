@@ -33,7 +33,7 @@ function ButtonsPanel({
               ? ans === correctAnswer
                 ? "bg-[rgba(22,219,147,255)]"
                 : "bg-[rgba(179,38,30,255)]"
-              : "bg-[rgba(232,222,248,255)] hover:bg-[rgba(232,222,248,0.5)]"
+              : "bg-[rgba(53,33,83,255)] hover:bg-[rgba(71,32,126,255)] hover:border-[rgba(125,69,175,255)]"
           }
           showAnswers={() => markAnswer(questionNum, ans === correctAnswer)}
         />

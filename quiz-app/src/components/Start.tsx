@@ -80,7 +80,7 @@ function Start({
   }
 
   return (
-    <div className="w-140 h-160 p-4 rounded-4xl bg-[rgba(223,205,222,0.5)]">
+    <>
       <form className="flex flex-col" onSubmit={handleSubmit}>
         <input
           className="m-2 border-2"
@@ -105,7 +105,7 @@ function Start({
         </select>
         <button type="submit">Go to Quiz</button>
       </form>
-    </div>
+    </>
   );
 }
 

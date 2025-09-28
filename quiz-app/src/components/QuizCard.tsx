@@ -102,10 +102,10 @@ function QuizCard({
 
   if (!data) {
     return (
-      <div className="w-140 h-160 p-4 rounded-4xl bg-[rgba(223,205,222,0.5)]">
+      <>
         <p>Loading...</p>
         <button onClick={refreshQuiz}>Refresh</button>
-      </div>
+      </>
     );
   }
 
@@ -115,19 +115,19 @@ function QuizCard({
 
   return (
     <>
-      <div className="w-140 h-160 p-4 rounded-4xl bg-[rgba(223,205,222,0.5)]">
-        <p>Category: {decodeHTML(data.category)}</p>
-        <p>Difficulty: {data.difficulty}</p>
-        <p>Question number: {questionNum + 1}</p>
-        <p>Question: {decodeHTML(data.question)}</p>
-        <ButtonsPanel
-          decodeHTML={decodeHTML}
-          correctAnswer={decodeHTML(data.correct_answer)}
-          incorrectAnswers={data.incorrect_answers}
-          userAnswer={userAnswer}
-          markAnswer={markAnswer}
-          questionNum={questionNum}
-        />
+      {/* <p>Category: {decodeHTML(data.category)}</p> */}
+      {/* <p>Difficulty: {data.difficulty}</p> */}
+      <p>Question number: {questionNum + 1}</p>
+      <p className="text-xl font-black">{decodeHTML(data.question)}</p>
+      <ButtonsPanel
+        decodeHTML={decodeHTML}
+        correctAnswer={decodeHTML(data.correct_answer)}
+        incorrectAnswers={data.incorrect_answers}
+        userAnswer={userAnswer}
+        markAnswer={markAnswer}
+        questionNum={questionNum}
+      />
+      <div className=" bg-[rgba(30,13,59,0.7)]">
         {questionNum !== 0 && (
           <button className="m-2" onClick={onQuestionNumPrev}>
             Previous Question
