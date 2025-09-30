@@ -63,6 +63,9 @@ function QuizCard({
       if (!allAnswered) {
         // console.log("Setting warning to true");
         setShowWarning(true);
+        setTimeout(() => {
+          setShowWarning(false);
+        }, 3000);
         return;
       }
 
@@ -117,30 +120,44 @@ function QuizCard({
     <>
       {/* <p>Category: {decodeHTML(data.category)}</p> */}
       {/* <p>Difficulty: {data.difficulty}</p> */}
-      <p>Question number: {questionNum + 1}</p>
-      <p className="text-xl font-black">{decodeHTML(data.question)}</p>
-      <ButtonsPanel
-        decodeHTML={decodeHTML}
-        correctAnswer={decodeHTML(data.correct_answer)}
-        incorrectAnswers={data.incorrect_answers}
-        userAnswer={userAnswer}
-        markAnswer={markAnswer}
-        questionNum={questionNum}
-      />
-      <div className=" bg-[rgba(30,13,59,0.7)]">
+      <div className="m-10">
+        <p className="text-xl font-bold">- {questionNum + 1} -</p>
+        <p className="mt-2 mb-3 text-2xl font-black">
+          {decodeHTML(data.question)}
+        </p>
+        <ButtonsPanel
+          decodeHTML={decodeHTML}
+          correctAnswer={decodeHTML(data.correct_answer)}
+          incorrectAnswers={data.incorrect_answers}
+          userAnswer={userAnswer}
+          markAnswer={markAnswer}
+          questionNum={questionNum}
+        />
+      </div>
+
+      <div className="absolute bottom-15 right-7">
+        {showWarning && questionNum + 1 === questionQuantity && (
+          <p className="text-red-600 font-semibold animate-pulse">
+            Mark all answers!
+          </p>
+        )}
+      </div>
+      <div className="absolute w-full h-15 bottom-0 flex flex-row justify-between rounded-b-3xl rounded-bl-3xl bg-[rgba(30,13,59,0.6)]">
         {questionNum !== 0 && (
-          <button className="m-2" onClick={onQuestionNumPrev}>
+          <button className="m-2 ml-10" onClick={onQuestionNumPrev}>
             Previous Question
           </button>
         )}
         {questionNum + 1 !== questionQuantity && (
-          <button className="m-2" onClick={onQuestionNumNext}>
+          <button
+            className="m-2 mr-10 [&:only-child]:ml-auto"
+            onClick={onQuestionNumNext}
+          >
             Next Question
           </button>
         )}
-        {showWarning && <p>Mark all answers!</p>}
         {questionNum + 1 === questionQuantity && (
-          <button className="m-2" onClick={toSummary}>
+          <button className="m-2 mr-10" onClick={toSummary}>
             Go to summary
           </button>
         )}

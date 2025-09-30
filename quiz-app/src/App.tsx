@@ -37,10 +37,21 @@ function App() {
     setCorrectAnswers(ans);
   }
 
+  let flexStyle = "justify-between";
+  if (step === 2) {
+    flexStyle = "justify-center";
+  }
+
   return (
     <>
       <VantaFog>
-        <div className="w-120 min-h-130 border-1 border-[rgba(55,30,93,255)] p-6 rounded-3xl bg-[rgba(41,17,71,0.7)] shadow-2xl">
+        <div
+          className={
+            "relative w-120 min-h-120 flex flex-col " +
+            flexStyle +
+            " border-1 border-[rgba(55,30,93,255)] rounded-3xl bg-[rgba(41,17,71,0.7)] shadow-2xl"
+          }
+        >
           {step === 0 && (
             <Start
               setNextStep={setNextStep}

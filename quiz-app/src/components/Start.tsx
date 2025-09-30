@@ -81,7 +81,7 @@ function Start({
 
   return (
     <>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
+      <form className="flex flex-col m-4" onSubmit={handleSubmit}>
         <input
           className="m-2 border-2"
           type="number"

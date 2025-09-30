@@ -23,7 +23,7 @@ function ButtonsPanel({
   answersTable.sort();
 
   return (
-    <>
+    <div className="mb-10">
       {answersTable.map((ans) => (
         <Button
           key={ans}
@@ -38,7 +38,7 @@ function ButtonsPanel({
           showAnswers={() => markAnswer(questionNum, ans === correctAnswer)}
         />
       ))}
-    </>
+    </div>
   );
 }
 
