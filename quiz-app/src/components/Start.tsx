@@ -1,4 +1,5 @@
 import type { QuizDataType } from "../types";
+import quizLogo from "../assets/quiz-logo.png";
 
 function Start({
   setNextStep,
@@ -80,32 +81,51 @@ function Start({
   }
 
   return (
-    <>
-      <form className="flex flex-col m-4" onSubmit={handleSubmit}>
+    <div className="flex flex-col m-2 items-center">
+      <img className="w-70" src={quizLogo} alt="logo" />
+      <form className="flex flex-col items-center" onSubmit={handleSubmit}>
         <input
-          className="m-2 border-2"
+          className="w-full m-2 p-1.5 border-2 rounded border-[rgba(55,30,93,255)] bg-[rgba(23,1,62,0.5)]"
           type="number"
           min={1}
           max={50}
           name="questionQuantity"
           defaultValue={10}
         />
-        <select className="m-2 border-2" name="category" id="category">
+        <select
+          className="w-full m-2 p-2 border-2 rounded border-[rgba(55,30,93,255)] bg-[rgba(23,1,62,0.5)]"
+          name="category"
+          id="category"
+        >
           {values.map((value, i) => (
             <option key={value} value={value}>
               {categories[i]}
             </option>
           ))}
         </select>
-        <select className="m-2 border-2" name="difficulty" id="difficulty">
+        <select
+          className="w-full m-2 p-2 border-2 rounded border-[rgba(55,30,93,255)] bg-[rgba(23,1,62,0.5)]"
+          name="difficulty"
+          id="difficulty"
+        >
           <option value="any">Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
-        <button type="submit">Go to Quiz</button>
+        <button
+          className="w-1/2 py-3 mt-4 
+         rounded-xl 
+         bg-gradient-to-r from-fuchsia-950 to-purple-900 
+         text-white font-semibold text-lg 
+         shadow-lg hover:scale-105 transform transition 
+         focus:outline-none focus:ring-2 focus:ring-fuchsia-900"
+          type="submit"
+        >
+          Go to Quiz
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 

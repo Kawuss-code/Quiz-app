@@ -105,10 +105,10 @@ function QuizCard({
 
   if (!data) {
     return (
-      <>
+      <div className="flex flex-col items-center">
         <p>Loading...</p>
         <button onClick={refreshQuiz}>Refresh</button>
-      </>
+      </div>
     );
   }
 
