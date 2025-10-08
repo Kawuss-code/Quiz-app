@@ -105,15 +105,24 @@ function QuizCard({
 
   if (!data) {
     return (
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center mt-auto mb-auto">
         <p>Loading...</p>
-        <button onClick={refreshQuiz}>Refresh</button>
+        <button
+          className="w-1/2 py-3 mt-4 
+         rounded-xl 
+         bg-gradient-to-r from-fuchsia-950 to-purple-900 
+         text-white font-semibold text-lg 
+         shadow-lg hover:scale-105 transform transition 
+         focus:outline-none focus:ring-2 focus:ring-fuchsia-900"
+          onClick={refreshQuiz}
+        >
+          Refresh
+        </button>
       </div>
     );
   }
 
   const questionQuantity = Number(localStorage.getItem("questionQuantity"));
-
   // checking if every question is answered
 
   return (
@@ -122,7 +131,7 @@ function QuizCard({
       {/* <p>Difficulty: {data.difficulty}</p> */}
       <div className="m-10">
         <p className="text-xl font-bold">- {questionNum + 1} -</p>
-        <p className="mt-2 mb-3 text-2xl font-black">
+        <p className="md:text-2xl mt-2 mb-3 text-xl font-black">
           {decodeHTML(data.question)}
         </p>
         <ButtonsPanel
@@ -157,7 +166,10 @@ function QuizCard({
           </button>
         )}
         {questionNum + 1 === questionQuantity && (
-          <button className="m-2 mr-10" onClick={toSummary}>
+          <button
+            className={"m-2 mr-10 " + "[&:only-child]:ml-auto"}
+            onClick={toSummary}
+          >
             Go to summary
           </button>
         )}

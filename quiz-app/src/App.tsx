@@ -47,7 +47,7 @@ function App() {
       <VantaFog>
         <div
           className={
-            "relative w-120 min-h-120 flex flex-col m-2" +
+            "relative w-120 min-h-120 flex flex-col justify-center m-4 " +
             flexStyle +
             " border-1 border-[rgba(55,30,93,255)] rounded-3xl bg-[rgba(41,17,71,0.7)] shadow-2xl"
           }
